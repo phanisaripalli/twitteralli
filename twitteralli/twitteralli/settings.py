@@ -121,8 +121,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_TWITTER_KEY = '###################'
-SOCIAL_AUTH_TWITTER_SECRET = '########################1'
+SOCIAL_AUTH_TWITTER_KEY = '############'
+SOCIAL_AUTH_TWITTER_SECRET = '##############'
 
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout/'

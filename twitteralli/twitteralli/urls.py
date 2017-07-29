@@ -20,7 +20,7 @@ from stats import views as core_views
 
 urlpatterns = [
     url(r'^stats/', include('stats.urls')),
-    url(r'^$', core_views.home, name='login'),
+    url(r'^$', core_views.about, name='about'),
     url(r'^home/$', core_views.home, name='home'),
     url(r'^login/$', core_views.login, name='login'),
     url(r'^logout/$', core_views.logout, name='logout'),     
