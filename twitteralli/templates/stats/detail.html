@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<script>
+	tinymce.init({selector:'#blog-test'});
+</script>
+
+<div id="content" class="bs-docs-header" >
+	<div class="container">
+	<p>Blog by  
+	{% if blogOwner %}
+			{{ blogOwner }}	
+		{% endif %}
+	</p>	
+</div></div>
+
+<div class="container bs-docs-container">
+		<div class="row">
+			<div class="col-md-12">
+				
+				<div class="bs-docs-section">	
+					<div class="bs-example">
+
+						{% if messages %}
+						{% for msg in messages %}
+
+							<div class="alert alert-danger fade in"> 
+							<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+							{{ msg.message }}	
+							</div>
+
+						{% endfor %}
+						{% endif %}
+
+						<form action="{% url 'detail' %}" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+							  <div class="form-group">
+							    <label for="title">{{ post.title }}</label>
+							    <p>Created {{ post.last_update }}</p>
+							  </div>
+
+
+							  <div class="form-group">
+							    <img src="/blog/get_img/{{ post.id }}" alt="post img" class="">
+							  </div>
+							  
+							  <br>
+
+							  
+							  
+							  <div class="form-group">
+							  	<!--<label for="tags">Content</label>-->
+							  	{% if not authenticated %}	
+							  	{{ post.content|safe }}
+							  	{% else %}	
+							  	<textarea name="content" id="blog-test">{{ post.content }}</textarea>
+							  	{% endif %}
+							  </div>	
+
+							  <div class="form-group">
+							    <label for="tags">Tags</label>
+							    <input type="text" {% if not authenticated %} {{ 'readonly="readonly"' }} {% endif %} class="form-control" name="tags" id="tags" value="{{ tags }}">
+							  </div>
+
+							  <div class="form-group">
+							    <input type="hidden" class="form-control" name="id" id="id" value="{{ post.id }}">
+							  </div>	
+
+							  {% if authenticated %}	
+							  <button type="submit" class="btn btn-default">Save</button>
+							  {% endif %}
+						</form>
+					</div>
+				</div>
+			</div>	
+		</div>		
+	</div>
+
+
+
+{% endblock %}

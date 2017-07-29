@@ -1,0 +1,111 @@
+{% load staticfiles %}
+<html>
+  <head>
+    
+  	<!--
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}bootstrap/css/docs.min.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet" media="screen">
+	-->
+
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" media="screen">    
+	<link href="{% static 'bootstrap/css/docs.min.css' %}" rel="stylesheet" media="screen">	
+	<link href="{% static 'font-awesome-4.7.0/css/font-awesome.css' %}" rel="stylesheet" media="screen">    
+	<link href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'custom/css/custom.css' %}" rel="stylesheet" media="screen">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+    
+    <title> Phani Saripalli </title>
+
+  </head>
+
+  <body>
+
+
+  	<header class="navbar navbar-static-top" id="top" role="banner">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	     
+	    </div>
+	    <nav class="collapse navbar-collapse bs-navbar-collapse">
+	    	<ul class="nav navbar-nav custom-nav">	        	
+		    	<li {% if activePage == 'about' %} {{ 'class="active"' }} {% endif %}>
+		       		<a href="{% url 'about' %}">About me</a>
+		    	</li>
+		    	<!--
+		    	<li {% if activePage == 'blog' %} {{ 'class="active"' }} {% endif %}>
+		        	<a href="{% url 'index' %}phanisaripalli">Blog</a>
+		    	</li>
+		    	-->
+		    	<li {% if activePage == 'blog' %} {{ 'class="active"' }} {% endif %}>
+		        	<a href="{% url 'index' %}">Twitter stats</a>
+		    	</li>
+	      	</ul>
+	    </nav>
+	  </div>
+</header>
+
+    {% block content %}
+    {% endblock %}
+
+	
+<footer id="main-footer" class="footer" style="position: relative;">
+	<div class="container">
+		<section class="row" style="">
+			<div class="col-sm-6 col-md-3">
+				<div class="inner">
+					<h5>About me</h5>
+					<ul>
+						<li><a href="/stats/about/">Profile</a></li>				
+					</ul>
+					<h5>Follow</h5>		
+					
+					<ul class="social-links list-inline">
+						<li>
+							<a href="https://www.linkedin.com/in/phanisaripalli" target="_blank">
+								<i id="social-linkedin" class="fa fa-linkedin-square fa-2x"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://twitter.com/phanisaripalli" target="_blank">
+								<i id="social-twitter" class="fa fa-twitter-square fa-2x"></i>
+							</a>
+						</li>						
+					</ul>
+
+				</div>
+				</div>					
+					<div class="col-sm-12 col-md-6">
+						<div class="inner">
+							<h5>Contact</h5>
+							<p>
+								<a href="https://goo.gl/SGZfg9">Phani Saripalli</a>
+								<br>Tel.:<a href="tel://+39 059 776 865">+49 176 823 787 13</a>
+								<br>E-mail: <a href="mailto:saripalli.phani@gmail.com">saripalli.phani@gmail.com</a>
+								<br>Skype: <a href="skype:saripalli.phani?add">saripalli.phani</a>					
+								<br><h5>Hannover, Germany</h5>
+							</p>
+				</div>
+			</div>
+		</div>		
+		</section>
+	</div>	
+</footer>
+
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

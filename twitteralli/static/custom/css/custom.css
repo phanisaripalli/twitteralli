@@ -1,0 +1,423 @@
+.line {
+	padding: 1px;
+    color: black;
+    margin: 1px;
+    display: block;
+    background: black;
+}
+
+
+.cover .cover-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    -webkit-transition: opacity .4s;
+    -o-transition: opacity .4s;
+    transition: opacity .4s;
+}
+
+.cover.full-window {
+    height: 100%;
+    width: 100%;
+}
+
+.cover {
+    background: #3d69e7;
+    position: relative;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+@media (min-width: 1200px)
+.cover h2 {
+    font-size: 5vw;
+}
+
+.cover h2 {
+    margin: 0;
+    color: #fff;
+    font-family: texgyreherosbold,texgyreherosregular,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 80px;
+    line-height: 1.1;
+}
+
+.cover .container-fluid {
+    position: absolute;
+    bottom: 0;
+    padding: 60px;
+    width: 100%;
+    background: -webkit-linear-gradient(0deg,rgba(0,0,0,.5) 0,rgba(0,0,0,0) 100%);
+    background: linear-gradient(0deg,rgba(0,0,0,.5) 0,rgba(0,0,0,0) 100%);
+}
+
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#main-footer {
+    background: #222;
+    font-size: 12px;
+    color: #999;
+    margin-top: 40px;
+}
+
+#main-footer .row {
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+
+#main-footer .inner {
+    padding: 0 15px;
+    line-height: 1.5;
+}
+
+#main-footer ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+#main-footer ul li {
+    margin-bottom: 5px;
+}
+
+#main-footer h5 {
+    font-size: 20px;
+    font-family: texgyreherosbold,texgyreherosregular,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    color: #999;    
+}
+
+#main-footer a {
+    color: #fff;
+    font-size: 20px;
+    outline: 0;
+    text-decoration: none;
+    border: 0;
+    transition: color .2s,border-color .2s,background .2s;
+    -webkit-transition: color .2s,border-color .2s,background .2s;    
+}
+
+.list-inline>li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.fa-2x {
+    font-size: 4em;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 3em;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0,0);
+}
+
+.fa:hover {
+	font-size: 4em;	
+}
+
+.container1 a {
+	font-size: 2em;
+    font-family: texgyreherosbold,texgyreherosregular,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.navbar-static-top {
+	position: fixed;
+    width: 100%;
+    background-color: black;
+}
+
+.custom-nav > li > a {
+	color: white;
+	font-size: 20px;
+}
+
+.navbar-nav > li > a {
+	color: white;
+	font-size: 20px;
+}
+
+.cover-image {
+    
+    /* Set a specific height */
+    min-height: 600px; 
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.separator-container {
+  text-align: center;
+  position: relative;
+}
+.separator-container .separator {
+  color: #c5a47e;
+  margin: 0 auto 1em;
+  width: 61em;
+}
+.separator-container .separator.line-separator:before, .separator-container .separator.line-separator:after {
+  display: block;
+  width: 40%;
+  content: " ";
+  margin-top: 14px;
+  border: 1px solid #c5a47e;
+}
+.separator-container .separator.line-separator:before {
+  float: left;
+}
+.separator-container .separator.line-separator:after {
+  float: right;
+}
+
+.btn-search {
+
+	/*
+	margin: 5;
+	padding: 18px 15px;
+	font-weight: 400;
+	background-color: #00aa3c;
+	border-color: #00aa3c;
+	color: white;
+	width: 180px;
+	font-size: 20px;
+
+	position: absolute;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    width: 70px;
+    padding: 0;
+    font-size: 25px;
+    max-height: 70px;
+    margin-top: 15px;
+	*/
+    right: 19px;
+    top: 40%;
+    font-size: 30;
+    color: #8c8787;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    position: absolute;
+}
+
+.form-group-tweet {
+	padding: 0;
+    position: relative;
+    font-family: "Chronicle Deck A", "Chronicle Deck B";
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.input-tweet {
+	height: 60px;
+    width: 100%;
+
+    background-color: transparent;
+    /* border: 0 none; */
+    /* color: transparent; */
+    font-size: 32px;
+    line-height: 68px;
+    height: 65px;
+    width: 100%;
+    font-family: "Chronicle Deck A", "Chronicle Deck B";
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    max-height: 90px;
+    overflow: hidden
+}
+
+.stream-item-header .avatar, .permalink-header .avatar {
+    float: left;
+    margin-top: 3px;
+    /*margin-left: -58px;*/
+}
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    -moz-force-broken-image-icon: 1;
+}
+img {
+    border: 0;
+}
+.fullname {
+    font-size: 20px;
+}
+.account-group .UserBadges {
+    font-size: .9em;
+    position: relative;
+    top: 1px;
+}
+.account-group .username, .time, .time a, .created-via {
+    font-size: 14px;
+    color: #657786;
+}
+
+.tweet {
+	padding: 10px;
+    margin: 10px;
+    border-bottom: 1px solid #eee;    
+    width: 80%
+}
+.account-group .username, .time, .time a, .created-via {
+    font-size: 14px;
+    color: #657786;
+}
+.tweet-container {
+	margin-bottom: 2px;
+    margin-top: 10px;
+}
+.tweet-container p {
+	font-size: 20px;
+}
+.tweet:hover {
+	background-color: gainsboro
+}
+.FullNameGroup {
+	margin-left:10px;
+}
+.time {
+	margin-left:10px;
+}
+.stream-item-header a {
+	text-decoration: none;
+}
+.ProfileTweet-action {
+	display: inline-block;
+    min-width: 80px;
+    font-size: 20px;
+    padding-right: 40;
+    color: dimgrey;
+}
+
+.side {
+	display: inline-block;
+    width: 200px;
+}
+
+.funkyradio div {
+  clear: both;
+  overflow: hidden;
+}
+
+.funkyradio label {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.funkyradio input[type="radio"]:empty,
+.funkyradio input[type="checkbox"]:empty {
+  display: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label,
+.funkyradio input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label:before,
+.funkyradio input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #888;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked ~ label,
+.funkyradio input[type="checkbox"]:checked ~ label {
+  color: #777;
+}
+
+.funkyradio input[type="radio"]:checked ~ label:before,
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus ~ label:before,
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked ~ label:before,
+.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio-primary input[type="radio"]:checked ~ label:before,
+.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.funkyradio-success input[type="radio"]:checked ~ label:before,
+.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.funkyradio-danger input[type="radio"]:checked ~ label:before,
+.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.funkyradio-warning input[type="radio"]:checked ~ label:before,
+.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #f0ad4e;
+}
+
+.funkyradio-info input[type="radio"]:checked ~ label:before,
+.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5bc0de;
+}
