@@ -63,12 +63,15 @@
     padding-left: 0;
     padding-right: 0;
 }
+.bs-docs-header {
+    margin-bottom: 0px;
+}
 
 #main-footer {
     background: #222;
     font-size: 12px;
     color: #999;
-    margin-top: 40px;
+    /*margin-top: 40px;*/
 }
 
 #main-footer .row {
@@ -142,12 +145,18 @@
 }
 
 .custom-nav > li > a {
-	color: white;
+	/*color: white;*/
 	font-size: 20px;
 }
 
 .navbar-nav > li > a {
 	color: white;
+	font-size: 20px;
+}
+
+.navbar-nav > li > a:hover {
+	color: black;
+	background-color: white;
 	font-size: 20px;
 }
 
@@ -332,15 +341,14 @@ img {
 
 .funkyradio input[type="radio"]:empty ~ label,
 .funkyradio input[type="checkbox"]:empty ~ label {
-  position: relative;
-  line-height: 2.5em;
-  text-indent: 3.25em;
-  margin-top: 2em;
-  cursor: pointer;
+	position: relative;
+  	line-height: 2.5em;
+  	text-indent: 3.25em;
+  	cursor: pointer;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+	 -moz-user-select: none;
+	  -ms-user-select: none;
+    user-select: none;
 }
 
 .funkyradio input[type="radio"]:empty ~ label:before,
@@ -418,6 +426,52 @@ img {
 
 .funkyradio-info input[type="radio"]:checked ~ label:before,
 .funkyradio-info input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5bc0de;
+	color: #fff;
+  	background-color: #5bc0de;
+}
+
+.login-btn {
+	background: #329ad6;
+    border: 1px solid transparent;
+    text-shadow: none;    
+}
+
+.login-btn a {
+	color: white;
+	font-size: 30px;
+	text-decoration: none;
+}
+
+.panel {
+	border-style: none;
+}
+.bs-docs-header, .bs-docs-masthead {
+	background-color: black;
+	background-image: url("img/img3.jpg");
+}
+
+.nopage {  
+  background-image: url("img/img5.jpg");
+}
+
+.bs-docs-header p {
+	color: white;
+	font-size: 35px;
+	font-weight: 200;
+	/*font-family: "Product Sans",Arial,sans-serif;*/
+}
+.table {
+    font-size: large;
+}
+.table a {
+    text-decoration: none;
+}
+.heading {
+    font-size: 48px;
+    line-height: 1.04167;
+    font-weight: 500;
+    letter-spacing: .006em;
+    font-family: "Product Sans",Arial,sans-serif;
+    color: white;
+    margin-top: 50px;
 }
