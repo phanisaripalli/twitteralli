@@ -59,20 +59,21 @@
 				</div>
 			</div>
 			<div class="row" style="margin-bottom: 10px;">
-				<!--<div class="line"></div>-->
-				<!--
-				<div class="separator-container">
-			        <div class="separator line-separator">        
-			        ∎        
-			        </div>
-			    </div>
-			    -->
 			</div>
 		</div>		
 	</section>
 
 	<div class="bs-example-bg-classes" data-example-id="contextual-backgrounds-helpers"> 
 		<p class="bg-primary"></p> 		
+	</div>
+
+	<div class="row"> 
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div id="trending-tweet" style="width: 900px; height: 500px;"></div>
+		</div>
+		<div class="col-md-2"></div>
+		
 	</div>
 
 	<section class="container" style="width:90%">		
@@ -98,10 +99,9 @@
 				            <input type="radio" name="result_type" id="radio1" value="popular">
 				            <label for="radio1">Most popular</label>
 				        </div>				        
-    			</div>
-
+    				</div>    				
 				</div>				
-			</div>			
+			</div>						
 		</div>	
 
 
@@ -124,28 +124,60 @@
 
   	function drawChart() {
     
-    var data = google.visualization.arrayToDataTable(forecast);
+	    var data = google.visualization.arrayToDataTable(forecast);
+	      var options = {
+	        title : '',
+	          vAxis: {title: 'Temperature'},
+	          hAxis: {title: 'Day - ' + geo_location },
+	          seriesType: 'bars',
+	          legend: 'left',
+	          series: {2: {type: 'line'}}
+	      };
 
-      var options = {
-        title : '',
-          vAxis: {title: 'Temperature'},
-          hAxis: {title: 'Day - ' + geo_location },
-          seriesType: 'bars',
-          legend: 'left',
-          series: {2: {type: 'line'}}
-      };
+	    var chart = new google.visualization.ComboChart(document.getElementById('forecast-chart-div'));
+	    chart.draw(data, options);
 
-    var chart = new google.visualization.ComboChart(document.getElementById('forecast-chart-div'));
-    chart.draw(data, options);
+	    
+  	}
 
-    $('#geo-search').on('click', function() {
-    	var location = $("#geo-location").val();
-    	if (location != null) {
-      		loadWeather(location, '');
-      		drawChart();      
-    	}        
+  	$('#geo-search').on('click', function() {
+  		var location = $("#geo-location").val();
+	    if (location != null) {
+	    	loadWeather(location, '');
+	    	drawChart();      
+	    }        
 	});
-  }
+
+
+
+    //google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawTrendingChart); 
+  
+  	function drawTrendingChart() {
+  		var trends = [
+  			['Tweets', 'Volume']
+  		];
+  		var url = "/stats/trends";
+  		$.getJSON( url, function(data) {     	
+    		for (var i = 0; i < data['trends'].length; i++) {	    		
+	    		trends.push( [data['trends'][i]['name'], data['trends'][i]['volume']] );
+
+	    	}	
+	    
+	    var data = google.visualization.arrayToDataTable(trends);	
+  		console.log(data);
+  		var options = {
+      		title: 'Trending tweets',      		
+    	};
+	    
+	    var chart = new google.visualization.PieChart(document.getElementById('trending-tweet'));
+    	chart.draw(data, options);
+
+		});
+  				 		
+    }
+
+
 </script>
 
 <script type="text/javascript">
@@ -161,8 +193,7 @@
 	$( "#search" ).click(function() {
 		max_id = null;	  
 		$( "#tweets" ).empty();				
-		result_type = $('input[name=result_type]').filter(':checked').val();
-		console.log(result_type);
+		result_type = $('input[name=result_type]').filter(':checked').val();		
 		loadTweets();
 	});
 
@@ -170,7 +201,7 @@
 		var key = e.which;		
 		 if (key == 13) {		 	
 		 	$('#search').click();
-		    return false;  
+		    	return false;  
 		  }
 	}); 
 

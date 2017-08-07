@@ -15,3 +15,7 @@ def get_tweets(api_k, result_type="recent"):
 	additional_param = "&result_type="+result_type
 	results = api.GetSearch(raw_query=api_k+additional_param)
 	return results
+
+def get_trends():
+    trends = api.GetTrendsCurrent()
+    return trends   

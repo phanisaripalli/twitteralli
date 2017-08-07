@@ -29,13 +29,11 @@ def tweets(request):
     if keywords is not None:
     	api_q = urllib.parse.urlencode({'q':keywords, 'count':15})
     	if max_id is not None:
-    		api_q += '&max_id=' + max_id    		
-    	print(result_type)	
+    		api_q += '&max_id=' + max_id    		    	
     	tweets = tw.get_tweets(api_q, result_type)    	       	
     	json_results = [tweet.AsDict() for tweet in tweets]
     	nr_tweets = len(json_results) 
-    	print(nr_tweets)
-    	print(api_q)   	
+    	    	
     	if (nr_tweets > 0):    		
     		max_id = json_results[nr_tweets-1]['id']    		
     		return HttpResponse(
@@ -54,7 +52,23 @@ def tweets(request):
             	content_type="application/json"
             )	
    	
+def trends(request):    
+    trends = tw.get_trends()    
     
+    json_results = [trend.AsDict() for trend in trends]
+    results = []  
+    for result in json_results:
+        if ('tweet_volume' in result):
+            url = '<a href="'+ result['url'] +'">'+ 'Fooo' +'</a>'
+            results.append({'name' : result['name'], 'volume' : result['tweet_volume'], 'url':url})                                 
+    
+    print(len(json_results))
+    #return json_results[0:5]
+    return HttpResponse(
+            json.dumps({'trends': results[0:10]}),
+            content_type="application/json"
+    )   
+
 
 @login_required
 def home(request):

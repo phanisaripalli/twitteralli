@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^index/$', views.index),
     url(r'^index/$', views.index, name='index'),
     url(r'^tweets/$', views.tweets, name='tweets'),
+    url(r'^trends/$', views.trends, name='trends'),
+    url(r'^foo/$', views.foo, name='foo'),
 
 ] 
 
