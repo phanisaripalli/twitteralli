@@ -13,6 +13,12 @@ urlpatterns = [
     url(r'^tweets/$', views.tweets, name='tweets'),
     url(r'^trends/$', views.trends, name='trends'),
     url(r'^foo/$', views.foo, name='foo'),
+    url(r'^stream_overview/$', views.stream_overview, name='stream_overview'),
+    url(r'^stream_popular_hashtags/$', views.stream_popular_hashtags, name='stream_stream_popular_hashtags'),
+    url(r'^stream_minutely_distribution/$', views.stream_minutely_distribution, name='stream_minutely_distribution'),
+    url(r'^stream_avg_distribution/$', views.stream_avg_distribution, name='stream_avg_distribution'),
+
+
 
 ] 
 

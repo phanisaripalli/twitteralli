@@ -70,14 +70,65 @@
 	<div class="row"> 
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
+			<h1 class="page-header">Trending tweets</h1>
 			<div id="trending-tweet" style="width: 900px; height: 500px;"></div>
 		</div>
 		<div class="col-md-2"></div>
-		
+	</div>
+
+	<div class="row">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<h1 class="page-header">Stream status - last 10 minutes</h1>
+			</div>
+		</div>
+		</div>
+			<div class="row">
+				<div class="col-md-4 b-stat">
+                	<div id="search-key" class="-number"><span class="-mute"></span></div>
+            		<h4 class="-title">Search key</h4>
+					<div id="stream-since"></div>
+				</div>
+				<div class="col-md-4 b-stat">
+                	<div id="total-tweets" class="-number"><span class="-mute"></span></div>
+            		<h4 class="-title">Total tweets</h4>
+				</div>
+				<div class="col-md-4 b-stat">
+                	<div id="unique-users" class="-number"><span class="-mute"></span></div>
+            		<h4 class="-title">Unique users</h4>
+				</div>
+        	</div>
+
+		</div>
+
+		<div class="row">
+				<div class="col-md-6">
+					<h2 class="page-header">Hashtags share</h2>
+					<div id="stream-hashtags" style="width: 900px; height: 500px;"></div>
+				</div>
+				<div class="col-md-6">
+					<h2 class="page-header">Hashtags volume</h2>
+					<div id="stream-hashtags-bar" style="width: 900px; height: 500px;"></div>
+				</div>
+		</div>
+
+		<div class="row">
+				<div class="col-md-6">
+					<h2 class="page-header">Tweet distribution</h2>
+					<div id="stream-distribution" style="width: 900px; height: 500px;"></div>
+				</div>
+				<div class="col-md-6 b-stat">
+					<h2 class="page-header">Avg. tweets/minutes</h2>
+					<div id="stream-avg" class="-number"><span class="-mute"></span></div>
+				</div>
+		</div>
+
 	</div>
 
 	<section class="container" style="width:90%">		
 		<div class="row" style="width:90%; margin-bottom: 30px;">
+			<h1 class="page-header" id="search-tweets">Search</h1>
 			<div class="row">   
 				<div class="col-md-6" id="report-1">					
 					<div class="form-inline">
@@ -123,16 +174,16 @@
   	google.charts.setOnLoadCallback(drawChart);
 
   	function drawChart() {
-    
+
 	    var data = google.visualization.arrayToDataTable(forecast);
-	      var options = {
-	        title : '',
-	          vAxis: {title: 'Temperature'},
-	          hAxis: {title: 'Day - ' + geo_location },
-	          seriesType: 'bars',
-	          legend: 'left',
-	          series: {2: {type: 'line'}}
-	      };
+	    var options = {
+		  title : '',
+		  vAxis: {title: 'Temperature'},
+		  hAxis: {title: 'Day - ' + geo_location },
+		  seriesType: 'bars',
+		  legend: 'left',
+		  series: {2: {type: 'line'}}
+	    };
 
 	    var chart = new google.visualization.ComboChart(document.getElementById('forecast-chart-div'));
 	    chart.draw(data, options);
@@ -149,8 +200,6 @@
 	});
 
 
-
-    //google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawTrendingChart); 
   
   	function drawTrendingChart() {
@@ -165,18 +214,16 @@
 	    	}	
 	    
 	    var data = google.visualization.arrayToDataTable(trends);	
-  		console.log(data);
+
   		var options = {
-      		title: 'Trending tweets',      		
+      		title: 'Most popular now',
     	};
 	    
 	    var chart = new google.visualization.PieChart(document.getElementById('trending-tweet'));
     	chart.draw(data, options);
-
+    
 		});
-  				 		
     }
-
 
 </script>
 
@@ -203,7 +250,122 @@
 		 	$('#search').click();
 		    	return false;  
 		  }
-	}); 
+	});
+
+	setInterval(function() {
+		$.ajax({
+		  url: "/stats/stream_popular_hashtags",
+		  context: document.body,
+		  success:function(data)
+		  {
+			  drawHashtagsChart(data['stream_stats'])
+			  drawHashBar(data['stream_stats']);
+		  }
+		});
+
+		$.ajax({
+		  url: "/stats/stream_overview",
+		  context: document.body,
+		  success:function(data)
+		  {
+
+		      stats = data['stream_stats'][0]
+		      $("#search-key").val('');
+		      $("#unique-users").val('');
+		      $("#total-tweets").val('');
+		      sinceTxt = "<p>Since - " + stats['since'] + "</p>"
+		      $("#stream-since").html(sinceTxt);
+			  $("#search-key").html(stats['search_key']);
+			  $("#unique-users").text(stats['distinct_users']);
+			  $("#total-tweets").text(stats['total_tweets']);
+			  //stream-avg
+		  }
+		});
+
+		$.ajax({
+			url: "/stats/stream_avg_distribution",
+			  context: document.body,
+			  success:function(data)
+			  {
+				  stats = data['stream_stats'][0]
+				  $("#stream-avg").text(stats['avg']);
+			  }
+		});
+
+		$.ajax({
+		  url: "/stats/stream_minutely_distribution",
+		  context: document.body,
+		  success:function(data)
+		  {
+			  drawMinuteBar(data['stream_stats'])
+		  }
+		});
+
+	}, 5000);
+
+
+	function drawHashtagsChart(data) {
+  		var hashtags = [
+  			['Popular hashtags', 'Volume']
+  		];
+  		for (var i = 0; i < data.length; i++) {
+  			hashtags.push( [data[i]['hashtag'], data[i]['total_tweets']] );
+	   	}
+
+	    var data = google.visualization.arrayToDataTable(hashtags);
+
+  		var options = {
+      		title: 'Most popular now',
+    	};
+
+	    var chart = new google.visualization.PieChart(document.getElementById('stream-hashtags'));
+    	chart.draw(data, options);
+	};
+
+	function drawHashBar(data) {
+
+		var hashtags = []
+		hashtags[0] = ['Hashtag', 'Total'];
+  		for (var i = 0; i < data.length; i++) {
+  			hashtags[i+1] = [data[i]['hashtag'], data[i]['total_tweets']];
+	   	}
+
+	   	var data = google.visualization.arrayToDataTable(hashtags);
+	      var options = {
+	        title : '',
+			  vAxis: {title: 'Total tweets'},
+			  hAxis: {title: 'Hashtag' },
+			  seriesType: 'bars',
+			  legend: 'left',
+			  series: {2: {type: 'line'}}
+	      };
+	    var chart = new google.visualization.ComboChart(document.getElementById('stream-hashtags-bar'));
+	    chart.draw(data, options);
+
+	}
+
+	function drawMinuteBar(data) {
+
+		var hashtags = []
+		hashtags[0] = ['Hr-Min', 'Total'];
+  		for (var i = 0; i < data.length; i++) {
+  			hashtags[i+1] = [data[i]['hr-min'], data[i]['total_tweets']];
+	   	}
+
+	   	var data = google.visualization.arrayToDataTable(hashtags);
+	      var options = {
+	        title : '',
+			  vAxis: {title: 'Total tweets'},
+			  hAxis: {title: 'Hr-min' },
+			  seriesType: 'bars',
+			  legend: 'left',
+			  series: {2: {type: 'line'}}
+	      };
+	    var chart = new google.visualization.ComboChart(document.getElementById('stream-distribution'));
+	    chart.draw(data, options);
+
+	}
+
 
 	function loadTweets() {
 		data = { keywords: $('#keywords').val(), 'result_type':result_type}
@@ -232,7 +394,7 @@
 			for (var i = 0; i < tweets.length; i++) {				
 				tweet = tweets[i];
 				tweetDiv = '<div class="tweet">';
-				tweetDiv += '<div class="row" style="width:80%">';
+				tweetDiv += '<div class="row" style="width:100%">';
 				tweetDiv += '<div class="col-md-4">';				
 				tweetDiv +=	'<div class="stream-item-header">\
 							  <a target="_blank" class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="https://twitter.com/'+tweet['user']['screen_name']+'">\
@@ -254,7 +416,7 @@
 				
 				tweetDiv += '</div>';
 				tweetDiv += '<a target="_blank" href="https://twitter.com/' + tweet['user']['screen_name']+'/status/'+tweet['id_str'] +'">';
-				tweetDiv += '<div class="col-md-6">';
+				tweetDiv += '<div class="col-md-8">';
 				
 				tweetDiv += '<div class=tweet-container>';
 				tweetDiv += '<p>' + tweet['text'] + '</p>';				

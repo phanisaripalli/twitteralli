@@ -7,6 +7,7 @@ import logging.config
 from stats import twitter_api as tw
 from django.http import HttpResponse
 import json, urllib
+import stats.twitter_stats as ts
 
 
 # Create your views here.
@@ -27,31 +28,31 @@ def tweets(request):
     max_id = request.GET.get('max_id')
     result_type = request.GET.get('result_type')
     if keywords is not None:
-    	api_q = urllib.parse.urlencode({'q':keywords, 'count':15})
-    	if max_id is not None:
-    		api_q += '&max_id=' + max_id    		    	
-    	tweets = tw.get_tweets(api_q, result_type)    	       	
-    	json_results = [tweet.AsDict() for tweet in tweets]
-    	nr_tweets = len(json_results) 
-    	    	
-    	if (nr_tweets > 0):    		
-    		max_id = json_results[nr_tweets-1]['id']    		
-    		return HttpResponse(
-    			json.dumps({'max_id': max_id, 'tweets':json_results}),
-            	content_type="application/json"
+        api_q = urllib.parse.urlencode({'q':keywords, 'count':15})
+        if max_id is not None:
+            api_q += '&max_id=' + max_id
+        tweets = tw.get_tweets(api_q, result_type)
+        json_results = [tweet.AsDict() for tweet in tweets]
+        nr_tweets = len(json_results)
+        print(json_results[0])
+        if (nr_tweets > 0):
+            max_id = json_results[nr_tweets-1]['id']
+            return HttpResponse(
+                json.dumps({'max_id': max_id, 'tweets':json_results}),
+                content_type="application/json"
             )
-    	else:
-    		return HttpResponse(
-    			json.dumps([]),
-            	content_type="application/json"
+        else:
+            return HttpResponse(
+                json.dumps([]),
+                content_type="application/json"
             )	
-    	
+
     else:
-    	return HttpResponse(
-            	json.dumps([]),
-            	content_type="application/json"
+        return HttpResponse(
+                json.dumps([]),
+                content_type="application/json"
             )	
-   	
+
 def trends(request):    
     trends = tw.get_trends()    
     
@@ -61,14 +62,57 @@ def trends(request):
         if ('tweet_volume' in result):
             url = '<a href="'+ result['url'] +'">'+ 'Fooo' +'</a>'
             results.append({'name' : result['name'], 'volume' : result['tweet_volume'], 'url':url})                                 
-    
-    print(len(json_results))
-    #return json_results[0:5]
+
     return HttpResponse(
             json.dumps({'trends': results[0:10]}),
             content_type="application/json"
     )   
 
+def stream_overview(request):
+
+    overview = ts.get_overview()
+    results = []
+    results.append({'search_key': overview[0], 'total_tweets': overview[1], 'distinct_users':overview[2], 'since':overview[3]})
+
+    return HttpResponse(
+        json.dumps({'stream_stats': results}),
+        content_type="application/json"
+    )
+
+def stream_popular_hashtags(request):
+
+    popular_hashtags = ts.poular_hashtags()
+    results = []
+    for hashtag in popular_hashtags:
+        results.append({'hashtag': hashtag[0], 'total_tweets': hashtag[1]})
+
+    return HttpResponse(
+        json.dumps({'stream_stats': results}),
+        content_type="application/json"
+    )
+
+def stream_minutely_distribution(request):
+
+    distributions = ts.minutly_dsitribution()
+    results = []
+    for distribution in distributions:
+        results.append({'hr-min': distribution[0], 'total_tweets': distribution[1]})
+
+    return HttpResponse(
+        json.dumps({'stream_stats': results}),
+        content_type="application/json"
+    )
+
+def stream_avg_distribution(request):
+
+    overview = ts.avg_distribution()
+    results = []
+    results.append({'avg': overview[0]})
+
+    return HttpResponse(
+        json.dumps({'stream_stats': results}),
+        content_type="application/json"
+    )
 
 @login_required
 def home(request):
